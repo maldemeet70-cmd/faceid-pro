@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaceID Pro — Intelligent Face Recognition System</title>
+  <meta name="description" content="Real-time face recognition system with instant actions — display info, open websites, play videos, and make payments." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-logo">🧠</div>
+    <div class="loading-info">
+      <h2>FaceID Pro</h2>
+      <p id="loading-text">Initializing AI models...</p>
+    </div>
+    <div class="loading-progress">
+      <div id="loading-progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Main App -->
+  <div class="app">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="app-logo">
+        <div class="app-logo-icon">🧠</div>
+        <div>
+          <h1>FaceID Pro</h1>
+          <span class="app-version">v1.0 — Intelligent Recognition</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="header-status">
+          <div class="status-dot" id="status-dot"></div>
+          <span id="status-text">Initializing...</span>
+        </div>
+        <button class="btn btn-primary btn-sm" id="register-btn" disabled>
+          <span class="btn-icon">➕</span> Register Face
+        </button>
+      </div>
+    </header>
+
+    <!-- Camera Section -->
+    <main class="camera-section">
+      <div class="camera-viewport" id="camera-viewport">
+        <!-- Camera placeholder shown before camera starts -->
+        <div class="camera-placeholder" id="camera-placeholder">
+          <div class="camera-placeholder-icon">📷</div>
+          <h3>Camera Feed</h3>
+          <p>Grant camera permission to enable face detection</p>
+          <button class="btn btn-primary" id="start-camera-btn">
+            <span class="btn-icon">🎥</span> Start Camera
+          </button>
+        </div>
+
+        <!-- Video and canvas overlay (hidden until camera starts) -->
+        <video id="webcam" autoplay muted playsinline style="display:none;"></video>
+        <canvas id="overlay-canvas" style="display:none;"></canvas>
+
+        <!-- Corner markers -->
+        <div class="camera-corners" style="display:none;" id="camera-corners">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+        </div>
+      </div>
+
+      <div class="camera-toolbar">
+        <button class="btn btn-ghost btn-sm" id="toggle-landmarks-btn" disabled>
+          <span class="btn-icon">🔲</span> Landmarks
+        </button>
+        <button class="btn btn-ghost btn-sm" id="toggle-detection-btn" disabled>
+          <span class="btn-icon">📊</span> Detection Info
+        </button>
+        <button class="btn btn-ghost btn-sm" id="snapshot-btn" disabled>
+          <span class="btn-icon">📸</span> Snapshot
+        </button>
+      </div>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Recognition Panel -->
+      <section class="sidebar-section">
+        <div class="section-header">
+          <span class="section-title">Recognition</span>
+        </div>
+        <div id="recognition-panel">
+          <div class="recognition-idle">
+            <div class="scan-animation">
+              <div class="scan-ring"></div>
+              <div class="scan-ring ring-2"></div>
+              <div class="scan-ring ring-3"></div>
+              <div class="scan-icon">🔍</div>
+            </div>
+            <h3 class="idle-title">Waiting for camera...</h3>
+            <p class="idle-subtitle">Start the camera to begin scanning</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Registered Profiles -->
+      <section class="sidebar-section">
+        <div class="section-header">
+          <span class="section-title">Registered Faces</span>
+          <span class="section-badge" id="profiles-count">0</span>
+        </div>
+        <div id="profiles-list">
+          <div class="empty-profiles">
+            <div class="empty-icon">👤</div>
+            <p>No faces registered yet</p>
+            <p class="empty-hint">Click "Register Face" to get started</p>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <!-- face-api.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1/dist/face-api.js"></script>
+
+  <!-- App entry point -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>
